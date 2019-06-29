@@ -2,6 +2,8 @@ const express = require("express");
 const parser = require("body-parser");
 const path = require("path");
 
+const mongoose = require("mongoose");
+
 const http = require("http");
 
 const app = express();
@@ -23,6 +25,8 @@ require("./routes/apiRoutes")(app);
 // setInterval(function() {
 //     http.get("");
 // }, 300000);
+
+mongoose.connect("mongodb://localhost/mernProject", {useNewUrlParser: truew});
 
 app.listen(PORT, function () {
     console.log(

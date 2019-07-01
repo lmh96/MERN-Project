@@ -1,11 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import './App.css';
+
+import DesktopHome from './desktop/Home';
+import DesktopResults from './desktop/Results';
+import DesktopAccount from './desktop/Account';
 
 //branchT
 
 class App extends React.Component {
   constructor(props) {
+    super(props);
     this.state = {
       width: window.innerWidth,
       height: window.innerHeight,
@@ -40,7 +46,7 @@ class App extends React.Component {
 
   handleStateChange = event => {
     event.preventDefault();
-    import { name, value } from event.target; 
+    const { name, value } = event.target;
 
     this.setState({
       [name]: value,
@@ -49,9 +55,19 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-
-      </div>
+      <Router>
+        <div className="App">
+          <Route exact path="/" render={() => (
+            <DesktopHome></DesktopHome>
+          )} />
+          <Route exact path="/results" render={() => (
+            <DesktopResults></DesktopResults>
+          )} />
+          <Route exact path="/account" render={() => (
+            <DesktopAccount></DesktopAccount>
+          )} />
+        </div>
+      </Router>
     );
   }
 }

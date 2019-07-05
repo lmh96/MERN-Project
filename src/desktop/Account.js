@@ -48,9 +48,11 @@ class Account extends React.Component {
                 {this.state.activePage === "home" ?
                     <div className="home-content">
                         <h2 className="home-title">Like History</h2>
-                        {arr.map(item => (
-                            item
-                        ))}
+                        <div className="history-contents">
+                            {arr.map(item => (
+                                item
+                            ))}
+                        </div>
                     </div>
                     :
                     <div className="settings-content">

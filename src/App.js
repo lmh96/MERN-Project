@@ -60,10 +60,10 @@ class App extends React.Component {
           <Route exact path="/" render={() => (
             <DesktopHome></DesktopHome>
           )} />
-          <Route exact path="/results" render={() => (
+          <Route path="/results" render={() => (
             <DesktopResults></DesktopResults>
           )} />
-          <Route exact path="/account" render={() => (
+          <Route path="/account" render={() => (
             <DesktopAccount></DesktopAccount>
           )} />
         </div>

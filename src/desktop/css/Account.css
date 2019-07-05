@@ -40,7 +40,7 @@
     left: 200px;
     border-top: 1px solid gray;
     width: calc(100vw - 301px);
-    height: calc(100vh - 131px);
+    height: calc(100vh - 161px);
     overflow: auto;
 }
 
@@ -48,6 +48,14 @@
     position: absolute;
     top: 10px;
     left: 100px;
+}
+
+.history-contents {
+    position: absolute;
+    top: 80px;
+    left: 100px;
+    max-height: calc(100% - 80px);
+    overflow: auto;
 }
 
 .past-result {

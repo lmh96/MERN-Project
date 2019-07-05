@@ -9,9 +9,24 @@ class Results extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            title: "",
+            issues: "",
+            writer: "",
+            artist: "",
+            description: "",
         }
     }
 
+    componentWillMount() {
+        fetch("/api/hero/flash").then(res => res.json()).then((result) => {
+            console.table(result);
+        })
+    }
+
+    componentWillUpdate() {
+
+    }
+ 
     render() {
         let arr = [];
         for (let i = 0; i < 10; i++) {

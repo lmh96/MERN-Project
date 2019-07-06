@@ -6,8 +6,13 @@ class Account extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            handlePageChange: this.props.handlePageChange,
             activePage: "home",
         }
+    }
+
+    componentWillMount() {
+        this.state.handlePageChange(window.location.pathname);
     }
 
     handleStateChange = event => {

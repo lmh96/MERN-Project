@@ -6,35 +6,52 @@ module.exports = function (app) {
     app.get('/api/hero/:id', function (req, res) {
         let KEY = "";
         let id = req.params.id;
+        let returnData = {
+            validationNumber: null,
+            volumedata: null,
+            firstdata: null,
+            lastdata: null,
+        };
         // axios.get("http://comicvine.gamespot.com/api/volume/?api_key=" + KEY + "&?format=json&character_credits=" + id).then(function(data) {
         axios.get("http://comicvine.gamespot.com/api/issues/?api_key=" + KEY + "&format=json&&sort=cover_date:desc&filter=name:" + id).then(function (data) {
             // console.log(data);
-            let results = data.data.results;
-            for (let i = 0; i < results.length; i++) {
-                if (results[i].description !== null)
-                    if (results[i].cover_date === null) {
+            let randoOne = Math.floor(Math.random() * data.data.results.length);
+            returnData.validationNumber = randoOne;
+            //let results = data.data.results;
+            let result = data.data.results[randoOne];
 
-                    } else {
-                        if(parseInt(results[i].cover_date.substring(0,4)) > 2005) {
-                            if(results[i].volume.id === null) {
-
-                            } else {
-                                // console.log(results[i].name);
-                                // console.log(results[i].volume);
-                                // console.log("\n");
-                                axios.get(results[i].volume.api_detail_url + "?api_key=" + KEY + "&format=json").then(function(vData) {
-                                    console.log(vData.data);
-                                })
-                            }
-                        }
-                        // axios.get("http://comicvine.com/api/volumes/?api_key=" + KEY + "&format=json&filter=id:" + results[i].volume.id).then(function(vData) {
-                        //     console.log(vData.data);
-                        // })
-                        // console.log(results[i]);
+            let validComic = false;
+            while (!validComic) {   //this is the validation loop to make sure what we're getting from the api had all the information we need to get good results
+                if (result.cover_date === null || result.cover_date === "") {
+                    let tempRando = Math.floor(Math.random() * data.data.results.length);
+                    returnData.validationNumber = tempRando;
+                    result = data.data.results[tempRando];
+                }
+                else {
+                    if (result.volume.id === null || result.volume.id === "") {
+                        let tempRando = Math.floor(Math.random() * data.data.results.length);
+                        returnData.validationNumber = tempRando;
+                        result = data.data.results[tempRando];
                     }
+                    else {
+                        validComic = true;
+                    }
+                }
             }
-            // console.log(results);
-            // res.json(data);
+
+            axios.get(result.volume.api_detail_url + "?api_key=" + KEY + "&format=json").then(function (vData) {
+                returnData.volumedata = vData.data.results;
+                
+                axios.get(vData.data.results.first_issue.api_detail_url + "?api_key=" + KEY + "&format=json").then(function (fData) {
+                    returnData.firstdata = fData.data.results;
+
+                    axios.get(vData.data.results.last_issue.api_detail_url + "?api_key=" + KEY + "&format=json").then(function(lData) {
+                        returnData.lastdata = lData.data.results;
+
+                        res.json(returnData);
+                    })
+                })
+            })
         })
     })
 }

@@ -4,6 +4,11 @@
     left: 0px;
 }
 
+.results-blur {
+    filter: blur(10px);
+    transition: all .5s ease-in-out;
+}
+
 .results-history {
     position: absolute;
     text-align: left;
@@ -11,8 +16,11 @@
     top: 0;
     width: 200px;
     height: calc(100vh - 81px);
+    max-height: calc(100vh - 81px);
     background: lightgray;
     border-top: 1px solid gray;
+    overflow: auto;
+    z-index: 100;
 }
 
 .history-result {
@@ -46,26 +54,39 @@
 
 .current-title {
     font-size: 32px;
+    margin-left: 331px;
 }
 
 .current-run-length {
     font-size: 24px;
+    margin-left: 331px;
 }
 
 .current-writer {
     font-size: 24px;
+    margin-left: 331px;
 }
 
 .current-artist {
     font-size: 24px;
+    margin-left: 331px;
 }
 
 .current-description-label {
     font-size: 24px;
+    margin-left: 331px;
 }
 
 .current-description {
     margin-top: -10px;
+    margin-left: 331px;
+}
+
+.current-description-container {
+    margin-top: -10px;
+    margin-left: 331px;
+    max-height: 440px;
+    overflow: auto;
 }
 
 .dislike-btn {

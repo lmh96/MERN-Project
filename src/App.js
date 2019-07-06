@@ -6,6 +6,7 @@ import './App.css';
 import DesktopHome from './desktop/Home';
 import DesktopResults from './desktop/Results';
 import DesktopAccount from './desktop/Account';
+import DesktopBackground from "./desktop/Background";
 
 //branchT
 
@@ -16,6 +17,9 @@ class App extends React.Component {
       width: window.innerWidth,
       height: window.innerHeight,
       isMobile: false,
+
+      queryKey: "spider-man",
+      page: window.location.pathname,
     }
   }
 
@@ -53,19 +57,18 @@ class App extends React.Component {
     });
   }
 
+  handlePageChange = value => {
+    this.setState({page: value});
+  }
+
   render() {
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" render={() => (
-            <DesktopHome></DesktopHome>
-          )} />
-          <Route path="/results" render={() => (
-            <DesktopResults></DesktopResults>
-          )} />
-          <Route path="/account" render={() => (
-            <DesktopAccount></DesktopAccount>
-          )} />
+          <DesktopHome query={this.state.queryKey} page={this.state.page} handleStateChange={this.handleStateChange} handleFormSubmit={this.handleFormSubmit}></DesktopHome>
+          <Route exact path="/" render={(props) => <DesktopBackground {...props} handleStateChange={this.handleStateChange} handlePageChange={this.handlePageChange}/>} />
+          <Route exact path="/results" render={(props) => <DesktopResults {...props} query={this.state.queryKey} handlePageChange={this.handlePageChange}></DesktopResults>} />
+          <Route exact path="/account" render={(props) => <DesktopAccount {...props} handlePageChange={this.handlePageChange}></DesktopAccount>} />
         </div>
       </Router>
     );

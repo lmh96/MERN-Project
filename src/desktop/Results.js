@@ -15,14 +15,13 @@ class Results extends React.Component {
             key: this.props.query,
             isLoading: true,
             fullresult: null,
-            title: "",
-            issuesCount: "",
-            writer: "",
-            artist: "",
+            title: "Comic Title: ####-####",
+            issuesCount: 100,
+            people: ["Bob", "Mark", "Wade"],
             description: null,
-            firstCoverLink: "",
+            firstCoverLink: "http://cdn.shopify.com/s/files/1/1556/9595/products/asm4partmocktrade_1200x1200.jpg?v=1545239497",
             validationNumber: null,
-            pastResults: [],
+            pastResults: ["Comics", "Can Go", "Here I Guess"],
             pastStates: [],
         }
     }
@@ -140,18 +139,31 @@ class Results extends React.Component {
                             <h4 key={pastResult} className="history-result">{pastResult}</h4>
                         ))}
                     </section>
+                    <section className="results-right-panel">
+
+                    </section>
                     <div className="current-result">
-                        <img className="current-cover" src={this.state.firstCoverLink === "" ? "http://cdn.shopify.com/s/files/1/1556/9595/products/asm4partmocktrade_1200x1200.jpg?v=1545239497" : this.state.firstCoverLink} alt="cover" />
+                        <div className="current-cover-div">
+                            <img className="current-cover" src={this.state.firstCoverLink} alt="cover" />
+                        </div>
                         <h2 className="current-title">{this.state.title}</h2>
                         <h4 className="current-run-length">{this.state.issuesCount} issues</h4>
-                        <h4 className="current-writer">Run Writer</h4>
-                        <h4 className="current-artist">Run Artist</h4>
+
+                        <div className="current-people-of-interest-div">
+                            <h4 className="current-people-of-interest-title">Interesting People</h4>
+                            {this.state.people.map(person => (
+                                <h5 key={person} className="current-person-of-interest">{person}</h5>
+                            ))}
+                        </div>
+
                         <h4 className="current-description-label">Description: </h4>
                         {/* <p className="current-description">enter stuff here</p> */}
                         <div className="current-description-container" dangerouslySetInnerHTML={{ __html: this.state.description }}></div>
 
-                        <button className="like-btn" onClick={this.handleLikeClick}><FontAwesomeIcon icon={faThumbsUp} /></button>
-                        <button className="dislike-btn" onClick={this.handleDislikeClick}><FontAwesomeIcon icon={faThumbsDown} /></button>
+                        <div className="current-selection-div">
+                            <button className="like-btn" onClick={this.handleLikeClick}><FontAwesomeIcon icon={faThumbsUp} /></button>
+                            <button className="dislike-btn" onClick={this.handleDislikeClick}><FontAwesomeIcon icon={faThumbsDown} /></button>
+                        </div>
                     </div>
                 </div>
 

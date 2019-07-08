@@ -29,7 +29,7 @@ class Home extends React.Component {
     render() {
         return (
             <div className={this.state.currentLoc === "/" ? "header-contents-center" : "header-contents-top"}>
-                <h1 className={this.state.currentLoc === "/" ? "header-title" : "header-title-top"}><Link to="/" onClick={this.handleTitleClick}>Comic Search</Link></h1>
+                <Link to="/" onClick={this.handleTitleClick}><h1 className={this.state.currentLoc === "/" ? "header-title" : "header-title-top"}>Comic Search</h1></Link>
                 <h3 className={this.state.currentLoc === "/" ? "header-moto" : "header-moto-top"}>search for semi-random comics since i don't have a recommender algorithm working yet</h3>
                 <div className={this.state.currentLoc === "/" ? "header-form" : "header-form-top"}>
                     <input

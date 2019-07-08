@@ -1,29 +1,34 @@
 .header-contents-center {
     position: absolute;
-    width: 800px;
-    left: calc(50vw - 400px);
-    top: calc(50vh - 200px);
+    text-align: center;
+    width: 100vw;
+    padding-top: 45vh;
+    top: 0;
     background: white;
     transition: .5s all ease-in-out;
-    z-index: 100;
+    z-index: 150;
 }
 
 .header-contents-top {
-    position: absolute;
+    position: fixed;
     top: 0;
     z-index: 100;
     background: lightgray;
+    border-bottom: 1px solid gray;
     width: 100vw;
     height: 80px;
     transition: .5s all ease-in-out;
+    z-index: 100;
 }
 
 .header-title {
     position: absolute;
     width: 300px;
-    top: 0;
+    top: 35vh;
     left: calc(50% - 150px);
     transition: .5s all ease-in-out;
+    color: black;
+    text-decoration: none;
 }
 
 .header-title-top {
@@ -32,12 +37,14 @@
     top: 0;
     left: -20px;
     transition: .5s all ease-in-out;
+    color: black;
+    text-decoration: none;
 }
 
 .header-moto {
     position: absolute;
     width: 800px;
-    top: 50px;
+    top: 41vh;
     left: calc(50% - 400px);
     transition: .5s all ease-in-out;
 }
@@ -45,7 +52,7 @@
 .header-moto-top {
     position: absolute;
     width: 800px;
-    top: 10px;
+    top: 13px;
     left: 250px;
     transition: .5s all ease-in-out;
 }
@@ -53,7 +60,7 @@
 .header-form {
     position: absolute;
     width: 300px;
-    top: 100px;
+    top: 47vh;
     left: calc(50% - 150px);
     transition: .5s all ease-in-out;
 }

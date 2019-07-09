@@ -17,11 +17,11 @@ class Results extends React.Component {
             fullresult: null,
             title: "Comic Title: ####-####",
             issuesCount: 100,
-            people: ["Bob", "Mark", "Wade"],
+            people: [],
             description: null,
             firstCoverLink: "http://cdn.shopify.com/s/files/1/1556/9595/products/asm4partmocktrade_1200x1200.jpg?v=1545239497",
             validationNumber: null,
-            pastResults: ["Comics", "Can Go", "Here I Guess"],
+            pastResults: [],
             pastStates: [],
         }
     }
@@ -71,7 +71,7 @@ class Results extends React.Component {
         this.state.handlePageChange(window.location.pathname);
         // console.log(this.state.key);
         fetch("/api/hero/" + this.state.key).then(res => res.json()).then((result) => {
-            // console.log(result);
+            console.log(result);
             if (this.state.validationNumber === null) {
                 this.setState({
                     validationNumber: result.validationNumber,

@@ -22,7 +22,9 @@ class Results extends React.Component {
             firstCoverLink: "http://cdn.shopify.com/s/files/1/1556/9595/products/asm4partmocktrade_1200x1200.jpg?v=1545239497",
             validationNumber: null,
             pastResults: [],
-            pastStates: [],
+            batchnum: 0,
+            returnedVolumes: [],
+            currentVolume: 0,
         }
     }
 
@@ -33,15 +35,12 @@ class Results extends React.Component {
         })
 
         let res = this.state.pastResults;
-        let states = this.state.pastStates;
         res.push(this.state.title);
-        states.push(this.state);
         this.setState({
             pastResults: res,
-            pastStates: states,
         })
 
-        this.search();
+        this.displayCurrent();
     }
 
     handleDislikeClick = () => {
@@ -50,16 +49,16 @@ class Results extends React.Component {
             isLoading: true,
         })
 
-        let res = this.state.pastResults;
-        let states = this.state.pastStates;
-        res.push(this.state.title);
-        states.push(this.state);
-        this.setState({
-            pastResults: res,
-            pastStates: states,
-        })
+        // let res = this.state.pastResults;
+        // let states = this.state.pastStates;
+        // res.push(this.state.title);
+        // states.push(this.state);
+        // this.setState({
+        //     pastResults: res,
+        //     pastStates: states,
+        // })
 
-        this.search();
+        this.displayCurrent();
     }
 
     componentWillMount() {
@@ -67,64 +66,123 @@ class Results extends React.Component {
         this.search();
     }
 
+    displayCurrent() {
+        // console.log(this.state.currentVolume);
+        // console.log(this.state.returnedVolumes.length);
+        if (this.state.currentVolume === this.state.returnedVolumes.length) {
+            // console.log("new search");
+            this.search();
+            return;
+        }
+
+        let currenthing = this.state.returnedVolumes[this.state.currentVolume];
+        let currentTitle = "";
+
+        if (currenthing.firstdata.cover_date === null || currenthing.lastdata.cover_date === null) {
+            currentTitle = currenthing.volumedata.name;
+        }
+        else {
+            let firstYear = parseInt(currenthing.firstdata.cover_date.substring(0, 4));
+            let lastYear = parseInt(currenthing.lastdata.cover_date.substring(0, 4));
+
+            if (firstYear === lastYear) {
+                currentTitle = currenthing.volumedata.name + ": " + firstYear;
+            }
+            else {
+                currentTitle = currenthing.volumedata.name + ": " + firstYear + " - " + lastYear;
+            }
+        }
+
+        for (let i = 0; i < this.state.pastResults.length; i++) {
+            if (this.state.pastResults[i] === currentTitle) {
+                // console.log(this.state.pastResults[i]);
+                // console.log(currentTitle);
+
+                let vnum = this.state.currentVolume;
+                vnum++;
+                console.log(vnum);
+                console.log(this.state.currentVolume);
+                if (vnum === this.state.returnedVolumes.length) {
+                    this.search();
+                    return;
+                }
+                else {
+                    this.setState({
+                        currentVolume: vnum,
+                    }, () => {
+                        console.log(this.state.currentVolume + "\n\n");
+                        this.displayCurrent();
+                        return;
+                    })
+                }
+            }
+        }
+
+        let result = this.state.returnedVolumes[this.state.currentVolume];
+
+        // console.log(result); 
+
+        let currentPeople = [];
+
+        // console.log(result.volumedata);
+        if (typeof (result.volumedata.people) === "undefined" || result.volumedata.people === null) {
+            currentPeople.push("none listed")
+        }
+        else {
+            for (let i = 0; i < result.volumedata.people.length; i++) {
+                currentPeople.push(result.volumedata.people[i].name);
+            }
+        }
+
+
+        this.setState({
+            issuesCount: result.volumedata.count_of_issues,
+            description: (result.volumedata.description),
+            firstCoverLink: result.firstdata.image.small_url,
+            fullresult: result,
+            people: currentPeople,
+        })
+
+        if (result.firstdata.cover_date === null || result.lastdata.cover_date === null) {
+            this.setState({
+                title: result.volumedata.name,
+            })
+        }
+        else {
+            let firstYear = parseInt(result.firstdata.cover_date.substring(0, 4));
+            let lastYear = parseInt(result.lastdata.cover_date.substring(0, 4));
+
+            if (firstYear === lastYear) {
+                this.setState({
+                    title: result.volumedata.name + ": " + firstYear,
+                })
+            }
+            else {
+                this.setState({
+                    title: result.volumedata.name + ": " + firstYear + " - " + lastYear,
+                })
+            }
+        }
+
+        let newCurrentVolume = this.state.currentVolume + 1;
+        this.setState({
+            isLoading: false,
+            currentVolume: newCurrentVolume,
+        })
+    }
+
     search() {
         this.state.handlePageChange(window.location.pathname);
         // console.log(this.state.key);
-        fetch("/api/hero/" + this.state.key).then(res => res.json()).then((result) => {
-            console.log(result);
-            if (this.state.validationNumber === null) {
-                this.setState({
-                    validationNumber: result.validationNumber,
-                })
-            }
-            else {
-                if (this.state.validationNumber === result.validationNumber) {
-                    this.search();
-                }
-                else {
-                    this.setState({
-                        validationNumber: result.validationNumber
-                    })
-                }
-            }
-
-            if (result.firstdata.cover_date === null || result.lastdata.cover_date === null) {
-                this.setState({
-                    title: result.volumedata.name,
-                    issuesCount: result.volumedata.count_of_issues,
-                    description: (result.volumedata.description),
-                    firstCoverLink: result.firstdata.image.original_url,
-                    fullresult: result,
-                })
-            }
-            else {
-                let firstYear = parseInt(result.firstdata.cover_date.substring(0, 4));
-                let lastYear = parseInt(result.lastdata.cover_date.substring(0, 4));
-
-                if (firstYear === lastYear) {
-                    this.setState({
-                        title: result.volumedata.name + ": " + firstYear,
-                        issuesCount: result.volumedata.count_of_issues,
-                        description: (result.volumedata.description),
-                        firstCoverLink: result.firstdata.image.original_url,
-                        fullresult: result,
-                    })
-                }
-                else {
-                    this.setState({
-                        title: result.volumedata.name + ": " + firstYear + " - " + lastYear,
-                        issuesCount: result.volumedata.count_of_issues,
-                        description: (result.volumedata.description),
-                        firstCoverLink: result.firstdata.image.original_url,
-                        fullresult: result,
-                    })
-                }
-
-            }
-
+        fetch("/api/hero/" + this.state.key + "/" + this.state.batchnum).then(res => res.json()).then((result) => {
+            // console.log(result);
             this.setState({
-                isLoading: false,
-            })
+                returnedVolumes: result.volumepackets,
+                currentVolume: 0,
+                batchnum: result.batchnum,
+            });
+
+            this.displayCurrent();
         })
 
     }

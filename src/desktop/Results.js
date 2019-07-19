@@ -13,6 +13,7 @@ class Results extends React.Component {
             handleStateChange: this.props.handleStateChange,
             handlePageChange: this.props.handlePageChange,
             key: this.props.query,
+            publisher: this.props.publisher,
             isLoading: true,
             fullresult: null,
             title: "Comic Title: ####-####",
@@ -62,6 +63,7 @@ class Results extends React.Component {
     }
 
     componentWillMount() {
+        console.log(this.state.publisher);
         this.state.handlePageChange(window.location.pathname);
         this.search();
     }
@@ -174,7 +176,7 @@ class Results extends React.Component {
     search() {
         this.state.handlePageChange(window.location.pathname);
         // console.log(this.state.key);
-        fetch("/api/hero/" + this.state.key + "/" + this.state.batchnum).then(res => res.json()).then((result) => {
+        fetch("/api/hero/" + this.state.key + "/" + this.state.publisher + "/" + this.state.batchnum).then(res => res.json()).then((result) => {
             // console.log(result);
             this.setState({
                 returnedVolumes: result.volumepackets,

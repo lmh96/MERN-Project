@@ -16,9 +16,11 @@ class App extends React.Component {
     this.state = {
       width: window.innerWidth,
       height: window.innerHeight,
+      iHaveLoginWorking: false,
+      isLoggedIn: true,
       isMobile: false,
-
-      queryKey: "spider-man",
+      publisher: "DC Comics",
+      queryKey: "flash",
       page: window.location.pathname,
     }
   }
@@ -51,7 +53,6 @@ class App extends React.Component {
   handleStateChange = event => {
     event.preventDefault();
     const { name, value } = event.target;
-
     this.setState({
       [name]: value,
     });
@@ -65,10 +66,10 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          <DesktopHome query={this.state.queryKey} page={this.state.page} handleStateChange={this.handleStateChange} handleFormSubmit={this.handleFormSubmit}></DesktopHome>
+          <DesktopHome query={this.state.queryKey} isLoggedIn={this.state.isLoggedIn} iHaveLoginWorking={this.state.iHaveLoginWorking} page={this.state.page} handleStateChange={this.handleStateChange} handleFormSubmit={this.handleFormSubmit}></DesktopHome>
           <Route exact path="/" render={(props) => <DesktopBackground {...props} handleStateChange={this.handleStateChange} handlePageChange={this.handlePageChange}/>} />
-          <Route exact path="/results" render={(props) => <DesktopResults {...props} query={this.state.queryKey} handlePageChange={this.handlePageChange}></DesktopResults>} />
-          <Route exact path="/account" render={(props) => <DesktopAccount {...props} handlePageChange={this.handlePageChange}></DesktopAccount>} />
+          <Route exact path="/results" render={(props) => <DesktopResults {...props} publisher={this.state.publisher} query={this.state.queryKey} handlePageChange={this.handlePageChange}></DesktopResults>} />
+          {this.state.iHaveLoginWorking ? <Route exact path="/account" render={(props) => <DesktopAccount {...props} handlePageChange={this.handlePageChange}></DesktopAccount>} /> : null}
         </div>
       </Router>
     );

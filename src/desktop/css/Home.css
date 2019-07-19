@@ -19,6 +19,17 @@
     height: 80px;
     transition: .5s all ease-in-out;
     z-index: 100;
+    background: rgb(56, 56, 189);
+}
+
+.header-contents-account-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: none;
+    font-size: 32px;
+    border: none;
+    outline: none;
 }
 
 .header-title {
@@ -45,6 +56,7 @@
     position: absolute;
     width: 800px;
     top: 41vh;
+    margin-top: 25px;
     left: calc(50% - 400px);
     transition: .5s all ease-in-out;
 }
@@ -59,16 +71,53 @@
 
 .header-form {
     position: absolute;
-    width: 300px;
+    width: 600px;
     top: 47vh;
-    left: calc(50% - 150px);
+    margin-top: 25px;
+    left: calc(50% - 301px);
     transition: .5s all ease-in-out;
+    border: 1px solid gray;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    border-radius: 10px;
+    background: white;
 }
 
 .header-form-top {
     position: absolute;
-    width: 300px;
+    width: 600px;
     top: -100px;
-    left: calc(50% - 150px);
-    transition: .5s all ease-in-out;
+    left: calc(50% - 301px);
+    left: calc(50% - 301px);
+    transition: .4s all ease-in-out;
+    border: 1px solid gray;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    border-radius: 10px;
+    background: white;
+}
+
+.header-publisher-select {
+    width: 85px;
+    font-size: 18px;
+    background: none;
+    border: none;
+    outline: none;
+    margin-right: 5px;
+}
+
+.header-input {
+    width: calc(100% - 140px);
+    font-size: 18px;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.header-btn {
+    width: 40px;
+    font-size: 18px;
+    background: none;
+    border: none;
+    outline: none;
 }

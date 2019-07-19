@@ -14,7 +14,7 @@ class Results extends React.Component {
             handlePageChange: this.props.handlePageChange,
             key: this.props.query,
             publisher: this.props.publisher,
-            isLoading: false,
+            isLoading: true,
             fullresult: null,
             title: "Comic Title: ####-####",
             issuesCount: 100,
@@ -63,7 +63,6 @@ class Results extends React.Component {
     }
 
     componentWillMount() {
-        console.log(this.state.publisher);
         this.state.handlePageChange(window.location.pathname);
         this.search();
     }

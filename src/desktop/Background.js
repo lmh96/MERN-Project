@@ -18,7 +18,7 @@ class Background extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{position: "fixed", top: 0, left: 0,}}>
                 <div className={this.state.currentLoc === "/" ? "Background" : "Background-Other"}></div>
                 <div className="Background-Gradient"></div>
             </div>

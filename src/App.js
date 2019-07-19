@@ -20,7 +20,7 @@ class App extends React.Component {
       isLoggedIn: true,
       isMobile: false,
       publisher: "Marvel",
-      queryKey: "flash",
+      queryKey: "spider-man",
       page: window.location.pathname,
     }
   }

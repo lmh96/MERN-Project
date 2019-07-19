@@ -6,7 +6,7 @@ import './App.css';
 import DesktopHome from './desktop/Home';
 import DesktopResults from './desktop/Results';
 import DesktopAccount from './desktop/Account';
-import DesktopBackground from "./desktop/Background";
+import DesktopBackground from './desktop/Background';
 
 //branchT
 
@@ -57,6 +57,9 @@ class App extends React.Component {
       [name]: value,
     });
   }
+  handlePageChange = value => {
+    this.setState({page: value});
+  }
 
   handlePageChange = value => {
     this.setState({page: value});
@@ -70,6 +73,14 @@ class App extends React.Component {
           <Route exact path="/" render={(props) => <DesktopBackground {...props} handleStateChange={this.handleStateChange} handlePageChange={this.handlePageChange}/>} />
           <Route exact path="/results" render={(props) => <DesktopResults {...props} publisher={this.state.publisher} query={this.state.queryKey} handlePageChange={this.handlePageChange}></DesktopResults>} />
           {this.state.iHaveLoginWorking ? <Route exact path="/account" render={(props) => <DesktopAccount {...props} handlePageChange={this.handlePageChange}></DesktopAccount>} /> : null}
+
+        <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Roboto+Slab&display=swap" rel="stylesheet"></link>
+         <Route exact path="/" render={(props) => <DesktopBackground {...props} handleStateChange={this.handleStateChange} handlePageChange={this.handlePageChange}/>} />
+         <DesktopHome query={this.state.queryKey} page={this.state.page} handleStateChange={this.handleStateChange} handleFormSubmit={this.handleFormSubmit}></DesktopHome>
+         <Route exact path="/results" render={(props) => <DesktopBackground {...props} handleStateChange={this.handleStateChange} handlePageChange={this.handlePageChange}/>} />
+         <Route exact path="/results" render={(props) => <DesktopResults {...props} query={this.state.queryKey} handlePageChange={this.handlePageChange}></DesktopResults>} />
+         <Route exact path="/account" render={(props) => <DesktopBackground {...props} handleStateChange={this.handleStateChange} handlePageChange={this.handlePageChange}/>} />
+         <Route exact path="/account" render={(props) => <DesktopAccount {...props} handlePageChange={this.handlePageChange}></DesktopAccount>} />
         </div>
       </Router>
     );

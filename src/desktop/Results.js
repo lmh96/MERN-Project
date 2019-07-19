@@ -14,7 +14,7 @@ class Results extends React.Component {
             handlePageChange: this.props.handlePageChange,
             key: this.props.query,
             publisher: this.props.publisher,
-            isLoading: true,
+            isLoading: false,
             fullresult: null,
             title: "Comic Title: ####-####",
             issuesCount: 100,

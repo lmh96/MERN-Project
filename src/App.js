@@ -6,6 +6,7 @@ import './App.css';
 import DesktopHome from './desktop/Home';
 import DesktopResults from './desktop/Results';
 import DesktopAccount from './desktop/Account';
+import DesktopBackground from './desktop/Background';
 
 //branchT
 
@@ -52,20 +53,22 @@ class App extends React.Component {
       [name]: value,
     });
   }
+  handlePageChange = value => {
+    this.setState({page: value});
+  }
 
   render() {
     return (
       <Router>
-        <div className="App">
-          <Route exact path="/" render={() => (
-            <DesktopHome></DesktopHome>
-          )} />
-          <Route exact path="/results" render={() => (
-            <DesktopResults></DesktopResults>
-          )} />
-          <Route exact path="/account" render={() => (
-            <DesktopAccount></DesktopAccount>
-          )} />
+
+        <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Roboto+Slab&display=swap" rel="stylesheet"></link>
+         <div className="App">
+         <Route exact path="/" render={(props) => <DesktopBackground {...props} handleStateChange={this.handleStateChange} handlePageChange={this.handlePageChange}/>} />
+         <DesktopHome query={this.state.queryKey} page={this.state.page} handleStateChange={this.handleStateChange} handleFormSubmit={this.handleFormSubmit}></DesktopHome>
+         <Route exact path="/results" render={(props) => <DesktopBackground {...props} handleStateChange={this.handleStateChange} handlePageChange={this.handlePageChange}/>} />
+         <Route exact path="/results" render={(props) => <DesktopResults {...props} query={this.state.queryKey} handlePageChange={this.handlePageChange}></DesktopResults>} />
+         <Route exact path="/account" render={(props) => <DesktopBackground {...props} handleStateChange={this.handleStateChange} handlePageChange={this.handlePageChange}/>} />
+         <Route exact path="/account" render={(props) => <DesktopAccount {...props} handlePageChange={this.handlePageChange}></DesktopAccount>} />
         </div>
       </Router>
     );

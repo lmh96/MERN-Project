@@ -3,6 +3,7 @@
 .Center-head {
     position: absolute;
     text-align: center;
+    height: 100vh;
     width: 100vw;
     top: 0;
     transition: .5s all ease-in-out;
@@ -20,14 +21,14 @@
     height: 80px;
     transition: .5s all ease-in-out;
     z-index: 100;
-    box-shadow: 1.5px 0.5px 20px #050202;
+    
 }
 
 .Head-Title {
     position: absolute;
     width: 700px;
-    height: 300px;
-    top: 25vh;
+    height: 250px;
+    top: calc(50% - 184px);
     padding-top: 30px;
     left: calc(50% - 352px);
     transition: .5s all ease-in-out, text-shadow 0s, box-shadow 0s;
@@ -49,8 +50,8 @@
 .Top-Head-Title {
     position: absolute;
     width: 400px;
-    top: -2.5vh;
-    left: 5vw;
+    top: -20px;
+    left: 50px;
     transition: .6s all ease-in-out, text-shadow 0s, box-shadow 0s;
     color: rgb(255, 255, 255);
     text-decoration: none;
@@ -64,7 +65,7 @@
 .Head-Desc {
     position: absolute;
     width: 400px;
-    top: 43vh;
+    top: calc(50% - 30px);
     left: calc(50% - 200px);
     transition: .5s all ease-in-out;
     font-family: 'Roboto Slab', sans-serif;
@@ -77,8 +78,8 @@
 .Top-Head-Desc {
     position: fixed;
     width: 325px;
-    top: 13px;
-    left: 450px;
+    top: 10px;
+    left: 420px;
     transition: .6s all ease-in-out;
     color: white;
     font-family: 'Roboto Slab', sans-serif;
@@ -90,7 +91,7 @@
     position: absolute;
     width: 600px;
     height: 35px;
-    top: 55vh;
+    top: calc(50% + 60px);
     left: calc(50% - 301px);
     background: #00000088;
     border: 1px solid white;
@@ -154,8 +155,8 @@
 
 .To-Account{
     position: fixed;
-    top: 2vh;
-    right: 25px;
+    top: 13px;
+    right: 20px;
     z-index: 100;
     border: none;
     background: none;
@@ -180,8 +181,8 @@
 }
 .Other-To-Account{
     position: fixed;
-    top: 2vh;
-    right: 25px;
+    top: 13px;
+    right: 20px;
     background-color: #ffffff00;
     border: none;
     color: white;

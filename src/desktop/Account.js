@@ -57,17 +57,19 @@ class Account extends React.Component {
     render() {
         return (
             <div className="account-content">
-                {/* <section className="side-panel">
+                {/*
+                <section className="side-panel">
                     <button className={"account-nav-btn" + (this.state.activePage === "home" ? " active-account-nav" : "")} onClick={this.handleStateChange} name="activePage" value={"home"}>
                         Home
                     </button>
                     <button className={"account-nav-btn" + (this.state.activePage === "settings" ? " active-account-nav" : "")} onClick={this.handleStateChange} name="activePage" value={"settings"}>
                         Settings
                     </button>
-                </section> */}
+                </section>
+                */}
                 {this.state.activePage === "home" ?
                     <div className="home-content">
-                        <h2 className="home-title">Like History</h2>
+                        <h2 className="home-title">Like History:</h2>
                         <div className="history-contents">
                             {this.state.comics.map(comic => (
                                 <div key={comic.title} className="past-result">

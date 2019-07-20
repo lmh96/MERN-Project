@@ -230,7 +230,7 @@ class Results extends React.Component {
             <div>
                 <div className={this.state.isLoading ? "results-content results-blur" : "results-content"}>
                     <section className="results-history">
-                        <h2 className="history-title">past results</h2>
+                        <h2 className="history-title">Past Results:</h2>
                         {this.state.pastResults.map(pastResult => (
                             <h4 key={pastResult} className="history-result">{pastResult}</h4>
                         ))}
@@ -244,9 +244,9 @@ class Results extends React.Component {
                         </div>
                         <h2 className="current-title">{this.state.title}</h2>
                         <h4 className="current-run-length">{this.state.issuesCount} issues</h4>
-
+                        <h4 className="current-people-of-interest-title">Interesting People:</h4>
                         <div className="current-people-of-interest-div">
-                            <h4 className="current-people-of-interest-title">Interesting People</h4>
+                            <div className="Current-People-Top-Space"></div>      
                             {this.state.people.map(person => (
                                 <h5 key={person} className="current-person-of-interest">{person}</h5>
                             ))}

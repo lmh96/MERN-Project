@@ -109,6 +109,12 @@ class Home extends React.Component {
         });
     }
 
+    handleKeyDown = event => {
+        if(event.key === 'Enter') {
+            this.handleSearchClick();
+        }
+    }
+
     render() {
         return (
             <div className={this.state.currentLoc === "/" ? "Center-Head" : "Top-Head"}>
@@ -174,6 +180,7 @@ class Home extends React.Component {
                         className="Header-Input"
                         name="queryKey"
                         onChange={this.state.handleStateChange}
+                        onKeyDown={this.handleKeyDown}
                         type="text"
                         placeholder="hero name"
                     />

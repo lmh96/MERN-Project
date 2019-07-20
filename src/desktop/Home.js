@@ -113,7 +113,7 @@ class Home extends React.Component {
 
     handleKeyDown = event => {
         if(event.key === 'Enter') {
-            this.handleSearchClick();
+            //this.handleSearchClick();
         }
     }
 

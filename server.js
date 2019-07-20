@@ -34,7 +34,7 @@ let user = "heroku_2psjs7x5";
 let pass = "doesthiswork1";
 let URI = "mongodb://" + user + ":" + pass + "@ds347367.mlab.com:47367/heroku_2psjs7x5";
 console.log(URI);
-mongoose.connect("mongodb://localhost/recommender", {useNewUrlParser: true}, function(err) {
+mongoose.connect(URI, {useNewUrlParser: true}, function(err) {
     if(err) {
         console.log(err);
     } else {

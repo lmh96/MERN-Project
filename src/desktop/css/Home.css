@@ -29,7 +29,7 @@
     height: 300px;
     top: 25vh;
     padding-top: 30px;
-    left: calc(50% - 353px);
+    left: calc(50% - 352px);
     transition: .5s all ease-in-out, text-shadow 0s, box-shadow 0s;
     color: white;
     text-decoration: none;

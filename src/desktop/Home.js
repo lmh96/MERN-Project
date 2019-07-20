@@ -38,7 +38,6 @@ class Home extends React.Component {
     }
 
     handleSearchClick = () => {
-        window.location = "/results";
         this.setState({ currentLoc: "/results" });
     }
     handleTitleClick = () => {
@@ -110,13 +109,6 @@ class Home extends React.Component {
         }, () => {
         });
     }
-
-    handleKeyDown = event => {
-        if(event.key === 'Enter') {
-            //this.handleSearchClick();
-        }
-    }
-
     render() {
         return (
             <div className={this.state.currentLoc === "/" ? "Center-Head" : "Top-Head"}>

@@ -7,11 +7,43 @@ class Account extends React.Component {
         super(props);
         this.state = {
             handlePageChange: this.props.handlePageChange,
+            comics: [],
             activePage: "home",
         }
     }
 
     componentWillMount() {
+        let cmx = JSON.parse(localStorage.getItem('currentUserComics')).comics;
+        if (localStorage.getItem('currentUserComics') === "" || localStorage.getItem('currentUserComics') === null) {
+
+        }
+        else {
+            if (Array.isArray(cmx)) {
+                this.setState({
+                    comics: cmx,
+                });
+            }
+            else {
+                let hasChildren = false;
+                for(let propName in cmx) {
+                    if(cmx.hasOwnProperty(propName)) {
+                        hasChildren = true;
+                    }
+                }
+
+                if(hasChildren) {
+                    this.setState({
+                        comics: cmx.comics,
+                    })
+                }
+                else {
+                    this.setState({
+                        comics: [],
+                    })
+                }
+            }
+
+        }
         this.state.handlePageChange(window.location.pathname);
     }
 
@@ -23,39 +55,29 @@ class Account extends React.Component {
     }
 
     render() {
-        let arr = [];
-        for (let i = 0; i < 10; i++) {
-            arr.push(
-                <div key={i} className="past-result">
-                    <img className="past-result-image" src="https://i2.wp.com/josephmallozzi.com/wp-content/uploads/2018/01/159.jpg?ssl=1" alt="comic-cover">
-
-                    </img>
-                    <h2 className="past-result-title">
-                        ResultTitle
-                            </h2>
-                    <h3 className="past-result-year">
-                        (****-****)
-                            </h3>
-                </div>
-            )
-        }
         return (
             <div className="account-content">
-                <section className="side-panel">
+                {/* <section className="side-panel">
                     <button className={"account-nav-btn" + (this.state.activePage === "home" ? " active-account-nav" : "")} onClick={this.handleStateChange} name="activePage" value={"home"}>
                         Home
                     </button>
                     <button className={"account-nav-btn" + (this.state.activePage === "settings" ? " active-account-nav" : "")} onClick={this.handleStateChange} name="activePage" value={"settings"}>
                         Settings
                     </button>
-                </section>
-                {console.log(this.state.activePage)}
+                </section> */}
                 {this.state.activePage === "home" ?
                     <div className="home-content">
                         <h2 className="home-title">Like History</h2>
                         <div className="history-contents">
-                            {arr.map(item => (
-                                item
+                            {this.state.comics.map(comic => (
+                                <div key={comic.title} className="past-result">
+                                    <img className="past-result-image" src={comic.imageURL} value={comic.volumeCall} alt="comic-cover">
+
+                                    </img>
+                                    <h2 className="past-result-title">
+                                        {comic.title}
+                                    </h2>
+                                </div>
                             ))}
                         </div>
                     </div>

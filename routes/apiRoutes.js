@@ -80,26 +80,55 @@ module.exports = function (app) {
 
 
 
-    app.post("/api/signup", function (req, res) {
-        let newUser = req.body;
+    app.get("/api/signup/:user/:pass", function (req, res) {
+        let newUser = {
+            username: req.params.user,
+            password: req.params.pass,
+        }
 
         newUser.imageURL = "https://www.loginradius.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png";
 
-        db.User.create(newUser).then(function (user) {
-            res.json({
-                _id: user._id,
-                comics: user.likedcomics,
-                tokentime: Date.now(),
-            });
-        });
+        db.User.findOne({ username: newUser.username }).then(function (user) {
+            if (user === null || user.username === null) {
+                db.User.create(newUser).then(function (user) {
+                    let returnData = {
+                        _id: user._id,
+                        comics: user.likedcomics,
+                        tokentime: Date.now(),
+                    }
+                    res.json(returnData);
+                });
+            }
+            else {
+                res.json({ error: "username " + newUser.username + " already taken" })
+            }
+
+        })
+
+
+
     });
 
     app.get("/api/signin/:user/:pass", function (req, res) {
-        db.User.findOne({ username: req.params.user, password: req.params.pass }).then(function (user) {
-            res.send(user._id);
-        }).catch(function (err) {
-            console.log(err);
-            res.send("invalid username or password");
+        db.User.findOne({ username: req.params.user }).then(function (user) {
+            if (user === null || user.username === null) {
+                res.json("no account with this username!");
+            }
+            else {
+                if (user.password === req.params.pass) {
+                    let returnData = {
+                        _id: user._id,
+                        comics: user.likedcomics,
+                        tokentime: Date.now(),
+                    }
+                    console.log(returnData);
+                    res.json(returnData);
+                }
+                else {
+                    res.json({ error: "incorrect password!" });
+                }
+            }
+
         });
     });
 
@@ -123,15 +152,27 @@ module.exports = function (app) {
 
     app.post("/api/like/:id", function (req, res) {
         let likedcomic = req.body;
+        console.log(likedcomic);
 
-        db.User.find({ _id: req.params.id }).then(function (user) {
-            let comics = user.likedcomics;
-            if (comics.length === null || comics.length === 0) {
+        db.User.find({ _id: req.params.id }).then(function (foundUser) {
+            let comics = [];
+            let user = foundUser[0];
+            console.log(user.likedcomics);
+            if(user.likedcomics.length === 0) {
+                console.log(null);
+            }
+            else {
+                comics = user.likedcomics;
+                console.log(comics);
+            }
+            if (comics === null || typeof(comics) === 'undefined' || comics.length === 0) {
+                console.log("reached null")
                 comics.push(likedcomic);
                 db.User.update({ _id: req.params.id }, { likedcomics: comics }).then(function (updatedUser) {
-                    res.json(updatedUser.likedcomics);
+                    res.json({comics: comics});
                 });
             } else {
+                console.log("not null");
                 let alreadyLiked = false;
                 for (let i = 0; i < comics.length; i++) {
                     if (comics[i].title === likedcomic.title) {
@@ -141,11 +182,14 @@ module.exports = function (app) {
                 }
 
                 if (alreadyLiked) {
-                    res.json(comics);
+                    console.log("already liked");
+                    res.json({comics: comics});
                 }
                 else {
+                    console.log("its not already liked");
+                    comics.push(likedcomic);
                     db.User.update({ _id: req.params.id }, { likedcomics: comics }).then(function (updatedUser) {
-                        res.json({ comics: updatedUser.likedcomics });
+                        res.json({ comics: comics });
                     });
                 }
             }

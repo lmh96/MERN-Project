@@ -26,15 +26,16 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname+'/build/index.html'));
 });
 
-setInterval(function() {
-    http.get("https://recommendersite.herokuapp.com/");
-}, 300000);
+// setInterval(function() {
+//     http.get("https://recommendersite.herokuapp.com/");
+// }, 300000);
 
-let user = "heroku_2psjs7x5";
-let pass = "doesthiswork1";
+let user = "client";
+let pass = "Psswrd1234";
 let URI = "mongodb://" + user + ":" + pass + "@ds347367.mlab.com:47367/heroku_2psjs7x5";
 console.log(URI);
-mongoose.connect(URI, {useNewUrlParser: true}, function(err) {
+
+mongoose.connect(URI, {useNewUrlParser: true, keepAlive: 1}, function(err) {
     if(err) {
         console.log(err);
     } else {

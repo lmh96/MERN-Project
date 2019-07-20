@@ -12,6 +12,10 @@ class Results extends React.Component {
         this.state = {
             handleStateChange: this.props.handleStateChange,
             handlePageChange: this.props.handlePageChange,
+            updateComics: this.props.updateComics,
+            isLoggedIn: this.props.isLoggedIn,
+            userID: this.props.userID,
+            userComics: this.props.comics,
             key: this.props.query,
             publisher: this.props.publisher,
             isLoading: true,
@@ -26,10 +30,41 @@ class Results extends React.Component {
             batchnum: 0,
             returnedVolumes: [],
             currentVolume: 0,
+            volumeCall: null,
         }
     }
 
+    componentWillReceiveProps () {
+        let id = this.state.userID;
+
+        this.setState({
+            userID: id,
+        }, () => {
+            console.log(this.state.userID);
+        })
+        this.forceUpdate();
+    }
+
     handleLikeClick = () => {
+        if (this.state.isLoggedIn) {
+            let likedComic = {
+                title: this.state.title,
+                imageURL: this.state.firstCoverLink,
+                volumeCall: this.state.volumeCall,
+            }
+            console.log(this.state.userID);
+            fetch('/api/like/' + this.state.userID, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(likedComic)
+            }).then(res => res.json()).then((result) => {
+                console.log(result);
+                this.state.updateComics(result);
+            });
+        }
         // console.log("like");
         this.setState({
             isLoading: true,
@@ -135,13 +170,13 @@ class Results extends React.Component {
             }
         }
 
-
         this.setState({
             issuesCount: result.volumedata.count_of_issues,
             description: (result.volumedata.description),
             firstCoverLink: result.firstdata.image.small_url,
             fullresult: result,
             people: currentPeople,
+            volumeCall: result.volumedata.api_detail_url,
         })
 
         if (result.firstdata.cover_date === null || result.lastdata.cover_date === null) {
@@ -187,6 +222,8 @@ class Results extends React.Component {
         })
 
     }
+
+
 
     render() {
         return (

@@ -156,8 +156,10 @@
     position: fixed;
     top: 2vh;
     right: 25px;
-    z-index: 100px;
+    z-index: 100;
     border: none;
+    background: none;
+    outline: none;
     color: white;
     padding: 5px 15px;
     cursor: pointer;
@@ -209,4 +211,82 @@
     background: none;
     border: none;
     outline: none;
+}
+
+.login-form-div {
+    position: fixed;
+    text-align: left;
+    top: 15px;
+    right: 32px;
+    width: 190px;
+    height: 160px;
+    z-index: 0;
+    background: lightgray;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding-top: 50px;
+    padding-left: 10px;
+    overflow: hidden;
+    transition: all .3s ease-in-out;
+}
+
+.hidden-div {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    border-radius: 5px;
+    top: 27px;
+    right: 50px;
+    padding: 0;
+    overflow: hidden;
+    transition: all .3s ease-in-out;
+}
+
+.login-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.username-input {
+    width: 178px;
+    margin-bottom: 15px;
+}
+
+.password-input {
+    width: 178px;
+}
+
+.login-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+    display: inherit;
+}
+
+.signup-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+    display: inherit;
+    transition: all .2s ease-in-out;
+}
+
+.hidden-btn {
+    right: -100px;
+    transition: all .2s ease-in-out;
+}
+
+.login-switcher-btn {
+    position: absolute;
+    top: 20px;
+    text-decoration: underline;
+    background: none;
+    outline: none;
+    border: none;
+    color: gray;
+}
+
+.login-switcher-btn:hover {
+    color: black;
 }

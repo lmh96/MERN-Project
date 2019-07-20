@@ -13,10 +13,10 @@ let UserSchema = new Schema({
         required: true,
     },
 
-    email: {
-        type: String,
-        required: true,
-    },
+    // email: {
+    //     type: String,
+    //     required: true,
+    // },
 
     imageURL: {
         type: String,

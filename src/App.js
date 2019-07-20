@@ -49,6 +49,12 @@ class App extends React.Component {
       let comics = JSON.parse(localStorage.getItem('currentUserComics')).comics;
       let user = localStorage.getItem('currentUser');
 
+      if(localStorage.getItem('currentUser') === "" || localStorage.getItem('currentUser') === null) {
+        this.setState({
+          isLoggedIn: false,
+        })
+      }
+
       if (Date.now() - parseInt(token) >= (60 * 60 * 2000)) {
         localStorage.setItem('currentUser', "");
         localStorage.setItem('currentUserToken', "");

@@ -13,6 +13,9 @@ class Account extends React.Component {
     }
 
     componentWillMount() {
+        if(localStorage.getItem('currentUser') === "" || localStorage.getItem('currentUser') === null) {
+            window.location = "/";
+        }
         let cmx = JSON.parse(localStorage.getItem('currentUserComics')).comics;
         if (localStorage.getItem('currentUserComics') === "" || localStorage.getItem('currentUserComics') === null) {
 

@@ -109,12 +109,30 @@ class Home extends React.Component {
         }, () => {
         });
     }
+
+    handleLogout = () => {
+        localStorage.setItem('currentUser', "");
+        localStorage.setItem('currentUserComics', "");
+        localStorage.setItem('currentUserToken', "");
+        this.setState({
+            isLoggedIn: false,
+        });
+        window.location = "/";
+    }
+
     render() {
         return (
             <div className={this.state.currentLoc === "/" ? "Center-Head" : "Top-Head"}>
                 <Link to="/" onClick={this.handleTitleClick}><h1 className={this.state.currentLoc === "/" ? "Head-Title" : "Top-Head-Title"}>Comic Scape</h1></Link>
                 <h3 className={this.state.currentLoc === "/" ? "Head-Desc" : "Top-Head-Desc"}>Search for your next favorite comic!</h3>
 
+                {this.state.currentLoc === "/account" ?
+                    <button className="header-logout-btn" onClick={this.handleLogout}>
+                        Logout
+                    </button>
+                    :
+                    null
+                }
                 {this.state.iHaveLoginWorking ?
                     this.state.isLoggedIn ?
                         <Link to="/account" className={this.state.currentLoc === "/" ? "To-Account" : "Other-To-Account"} onClick={this.handleAccountClick}><img src="/Default-Profile.png" className="Account-Image" alt="Profile Icon" /></Link>

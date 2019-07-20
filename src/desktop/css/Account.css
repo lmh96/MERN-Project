@@ -35,19 +35,24 @@
     position: absolute;
     text-align: left;
     padding-left: 100px;
-    padding-top: 80px;
-    border-left: 1px solid gray;
+    padding-top: 40px;
     left: 200px;
     border-top: 1px solid gray;
-    width: calc(100vw - 301px);
-    height: calc(100vh - 161px);
+    width: calc(85vw - 301px);
+    height: calc(150vh - 161px);
     overflow: auto;
+    background: radial-gradient(rgb(61, 61, 61) 10px,rgb(29, 29, 29));
+    box-shadow: inset 0px 0px 20px;
 }
 
 .home-title {
     position: absolute;
-    top: 10px;
+    top: -5px;
     left: 100px;
+    font-family: 'Roboto Slab', sans-serif;
+    font-size: 200%;
+    color: white;
+    border-bottom: solid white 2px;
 }
 
 .history-contents {
@@ -58,15 +63,22 @@
     overflow: auto;
 }
 
+.history-contents::-webkit-scrollbar{
+    color: red;
+}
+
 .past-result {
     display: inline-block;
     margin-right: 40px;
     margin-bottom: 30px;
     text-align: center;
+    font-family: 'Roboto Slab', sans-serif;
+    color: white;
 }
 
 .past-result-image {
     height: 300px;
+    box-shadow: 5px 5px 8px black;
 }
 
 .settings-content {

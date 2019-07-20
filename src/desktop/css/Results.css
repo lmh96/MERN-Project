@@ -1,6 +1,7 @@
 a {
-    color: black;
+    color: white;
     text-decoration: none;
+    font-family: 'Robot Slab', sans-serif;
 }
 
 a:hover {
@@ -29,7 +30,7 @@ a:hover {
     max-width: calc(20vw - 27px);
     height: calc(100vh - 81px);
     max-height: calc(100vh - 81px);
-    background: rgba(218, 218, 218, 0.1);
+    background: rgba(218, 218, 218, 0.5);
     overflow: auto;
     z-index: 100;
 }
@@ -38,15 +39,17 @@ a:hover {
     margin-left: 50px;
     width: calc(100% - 55px);
     text-align: left;
+    font-family:'Roboto Slab', sans-serif;
 }
 
 .history-title {
-    margin-left: 50px;
+    margin-left: 35px;
+    font-family:'Roboto Slab', sans-serif;
 }
 
 .results-right-panel {
     position: fixed;
-    top: 80px;
+    top: 75px;
     right: 0;
     width: calc(15vw - 27px);
     height: calc(100vh - 82px);
@@ -56,15 +59,13 @@ a:hover {
 .current-result {
     position: absolute;
     text-align: left;
-    top: 80px;
+    top: 81px;
     left: calc(20vw - 26px);
     padding-left: 51px;
     padding-top: 70px;
-    border: 1px solid gray;
     width: calc(60vw - 1px);
     min-height: calc(100vh - 152px);
-    background: white;
-    background: radial-gradient(rgb(160, 160, 160), rgb(223, 223, 223));
+    background: radial-gradient(rgb(61, 61, 61) 10px,rgb(29, 29, 29));
     z-index: 10;
 }
 
@@ -83,48 +84,84 @@ a:hover {
     transform: translateY(-50%);
     width: 300px;
     margin: 0;
+    box-shadow: 5px 8px 15px;
 }
 
 .current-title {
     font-size: 32px;
     margin-top: -10px;
     margin-left: 331px;
+    font-family:'Roboto Slab', sans-serif;
+    color: white;
 }
 
 .current-run-length {
     font-size: 24px;
     margin-top: -10px;
     margin-left: 331px;
+    font-family:'Roboto Slab', sans-serif;
+    color: white;
 }
 
 .current-people-of-interest-div {
     margin-top: -10px;
     margin-left: 331px;
     width: 275px;
-    height: 339px;
-    max-height: 339px;
+    height: 315px;
+    max-height: 315px;
     overflow: auto;
+    color: grey;
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+    background: #00000088;
+    box-shadow: inset 0 0 10px #000000;
+    scrollbar-base-color: rgb(61, 61, 61);
+}
+.current-people-of-interest-div::-webkit-scrollbar{
+    color: red;
 }
 
 .current-people-of-interest-title {
     font-size: 24px;
+    font-family:'Roboto Slab', sans-serif;
+    color: white;
+    padding-left: 8px;
 }
 
 .current-person-of-interest {
     font-size: 12px;
     margin-top: -10px;
+    font-family:'Roboto Slab', sans-serif;
+    color: white;
+    padding-left: 8px;
+
+}
+
+.Current-People-Top-Space{
+    padding-top: 20px;
 }
 
 .current-description-label {
     font-size: 24px;
+    font-family:'Roboto Slab', sans-serif;
+    color: white;
 }
 
 .current-description {
     margin-top: -10px;
+    font-family:'Roboto Slab', sans-serif;
+    color: white;
 }
 
 .current-description-container {
     overflow: auto;
+    font-family: 'Robot Slab', sans-serif;
+    color: white;
+}
+
+p{
+    font-family: 'Robot Slab', sans-serif;
 }
 
 .current-selection-div {
@@ -139,6 +176,7 @@ a:hover {
     padding-top: 5px;
     padding-bottom: 5px;
     overflow: hidden;
+    box-shadow: 1px 1px 10px;
 }
 
 .current-selection-blur {

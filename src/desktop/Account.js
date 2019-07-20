@@ -41,6 +41,7 @@ class Account extends React.Component {
         }
         return (
             <div className="account-content">
+                {/*
                 <section className="side-panel">
                     <button className={"account-nav-btn" + (this.state.activePage === "home" ? " active-account-nav" : "")} onClick={this.handleStateChange} name="activePage" value={"home"}>
                         Home
@@ -49,10 +50,11 @@ class Account extends React.Component {
                         Settings
                     </button>
                 </section>
+                */}
                 {console.log(this.state.activePage)}
                 {this.state.activePage === "home" ?
                     <div className="home-content">
-                        <h2 className="home-title">Like History</h2>
+                        <h2 className="home-title">Like History:</h2>
                         <div className="history-contents">
                             {arr.map(item => (
                                 item

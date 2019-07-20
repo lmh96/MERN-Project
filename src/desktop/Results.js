@@ -39,8 +39,6 @@ class Results extends React.Component {
 
         this.setState({
             userID: id,
-        }, () => {
-            console.log(this.state.userID);
         })
         this.forceUpdate();
     }

@@ -10,6 +10,7 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            toResults: false,
             currentPage: this.props.page,
             query: this.props.query,
             handleStateChange: this.props.handleStateChange,
@@ -37,6 +38,7 @@ class Home extends React.Component {
     }
 
     handleSearchClick = () => {
+        window.location = "/results";
         this.setState({ currentLoc: "/results" });
     }
     handleTitleClick = () => {
@@ -168,11 +170,11 @@ class Home extends React.Component {
                     {/* <div className="Publisher-Label">Publisher:</div> */}
                     <select className="Publisher-Select" name="publisher" onChange={this.state.handleStateChange}>
                         Publisher:
-                        <option value="Marvel">
+                        <option value="Marvel" className="Publisher-Option">
                             Marvel
                         </option>
-                        <option value="DC Comics">
-                            DC Comics
+                        <option value="DC Comics" className="Publisher-Option">
+                            DC
                         </option>
                     </select>
 

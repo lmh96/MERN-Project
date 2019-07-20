@@ -184,6 +184,7 @@
     top: 13px;
     right: 20px;
     background-color: #ffffff00;
+    z-index: 100;
     border: none;
     color: white;
     padding: 5px 15px;
@@ -212,6 +213,10 @@
     background: none;
     border: none;
     outline: none;
+}
+
+.Publisher-Option {
+    background: #140404
 }
 
 .login-form-div {

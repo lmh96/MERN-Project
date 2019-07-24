@@ -126,6 +126,14 @@ class Home extends React.Component {
                 <Link to="/" onClick={this.handleTitleClick}><h1 className={this.state.currentLoc === "/" ? "Head-Title" : "Top-Head-Title"}>Comic Scape</h1></Link>
                 <h3 className={this.state.currentLoc === "/" ? "Head-Desc" : "Top-Head-Desc"}>Search for your next favorite comic!</h3>
 
+                {this.state.showForm ?
+                    <div className="form-exit-field" onClick={this.closeLoginForm}>
+
+                    </div>
+                    :
+                    null
+                }
+
                 {this.state.currentLoc === "/account" ?
                     <button className="header-logout-btn" onClick={this.handleLogout}>
                         Logout
@@ -133,15 +141,12 @@ class Home extends React.Component {
                     :
                     null
                 }
-                {this.state.iHaveLoginWorking ?
-                    this.state.isLoggedIn ?
-                        <Link to="/account" className={this.state.currentLoc === "/" ? "To-Account" : "Other-To-Account"} onClick={this.handleAccountClick}><img src="/Default-Profile.png" className="Account-Image" alt="Profile Icon" /></Link>
-                        :
-                        <button className={this.state.currentLoc === "/" ? "To-Account" : "Other-To-Account"} onClick={this.state.showForm ? this.closeLoginForm : this.openLoginForm} style={this.state.showForm ? { boxShadow: "none" } : null}>
-                            <img src="/Default-Profile.png" className="Account-Image" alt="Profile Icon" onClick={this.openLoginForm} style={this.state.showForm ? { boxShadow: "none" } : null} />
-                        </button>
+                {this.state.isLoggedIn ?
+                    <Link to="/account" className={this.state.currentLoc === "/" ? "To-Account" : "Other-To-Account"} onClick={this.handleAccountClick}><img src="/Default-Profile.png" className="Account-Image" alt="Profile Icon" /></Link>
                     :
-                    null
+                    <button className={this.state.currentLoc === "/" ? "To-Account" : "Other-To-Account"} onClick={this.state.showForm ? this.closeLoginForm : this.openLoginForm} style={this.state.showForm ? { boxShadow: "none" } : null}>
+                        <img src="/Default-Profile.png" className="Account-Image" alt="Profile Icon" onClick={this.openLoginForm} style={this.state.showForm ? { boxShadow: "none" } : null} />
+                    </button>
                 }
 
                 {this.state.isLoggedIn ?

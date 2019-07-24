@@ -34,7 +34,7 @@ class Results extends React.Component {
         }
     }
 
-    componentWillReceiveProps () {
+    componentWillReceiveProps() {
         let id = this.state.userID;
 
         this.setState({
@@ -44,6 +44,7 @@ class Results extends React.Component {
     }
 
     handleLikeClick = () => {
+        console.log(this.state.isLoggedIn);
         if (this.state.isLoggedIn) {
             let likedComic = {
                 title: this.state.title,
@@ -51,17 +52,28 @@ class Results extends React.Component {
                 volumeCall: this.state.volumeCall,
             }
             console.log(this.state.userID);
-            fetch('/api/like/' + this.state.userID, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(likedComic)
-            }).then(res => res.json()).then((result) => {
-                console.log(result);
-                this.state.updateComics(result);
-            });
+            if (this.state.userID === null || this.state.userID === "") {
+                console.log("userID is null");
+            }
+            else {
+                fetch('/api/like/' + this.state.userID, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(likedComic)
+                }).then(res => res.json()).then((result) => {
+                    if (result.error === "" || result.error === null) {
+                        console.log(result);
+                        this.state.updateComics(result);
+                    }
+                    else {
+                        console.log(result.error);
+                    }
+                });
+            }
+
         }
         // console.log("like");
         this.setState({
@@ -244,7 +256,7 @@ class Results extends React.Component {
                         <h4 className="current-run-length">{this.state.issuesCount} issues</h4>
                         <h4 className="current-people-of-interest-title">Interesting People:</h4>
                         <div className="current-people-of-interest-div">
-                            <div className="Current-People-Top-Space"></div>      
+                            <div className="Current-People-Top-Space"></div>
                             {this.state.people.map(person => (
                                 <h5 key={person} className="current-person-of-interest">{person}</h5>
                             ))}

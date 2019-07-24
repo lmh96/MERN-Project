@@ -14,7 +14,7 @@ module.exports = function (app) {
             volumepackets: [],
             batchnum: batchnum + 10,
         };
-        // console.log("\n\nRunning BATCH: " + ((batchnum / 10) + 1) + "\n");
+        console.log("\n\nRunning BATCH: " + ((batchnum / 10) + 1) + "\n");
         let query = "http://comicvine.gamespot.com/api/issues/?api_key=" + KEY + "&format=json&&sort=cover_date:desc&filter=name:" + id + "&limit=10&offset=" + req.params.batchnum;
         // console.log(query);
         axios.get(query).then(function (iData) {
@@ -22,7 +22,7 @@ module.exports = function (app) {
             let volumeIds = [];
 
             // console.log("inside first call\n\n");
-            // console.log("  Running first validation phase")
+            console.log("  Running first validation phase")
             for (let i = 0; i < iData.data.results.length; i++) {
                 let result = iData.data.results[i];
                 if (result.cover_date === null || result.cover_date === "") {
@@ -31,30 +31,30 @@ module.exports = function (app) {
                 }
                 else {
                     if (parseInt(result.cover_date.substring(0, 4)) < 2005) {
-                        // console.log("    Result " + (i + 1) + ": " + result.cover_date + " - " + result.volume.id + " - " + result.volume.api_detail_url + " - FAILED --> REASON: cover date is too old");
+                        console.log("    Result " + (i + 1) + ": " + result.cover_date + " - " + result.volume.id + " - " + result.volume.api_detail_url + " - FAILED --> REASON: cover date is too old");
                         // console.log(result.cover_date);
                         // console.log("cover date is too old\n\n")
                     }
                     else {
                         // console.log(result.volume);
                         if (result.volume.id === null || result.volume.id === "") {
-                            // console.log("    Result " + (i + 1) + ": " + result.cover_date + " - " + result.volume.id + " - " + result.volume.api_detail_url + " - FAILED --> REASON: no volume id found");
+                            console.log("    Result " + (i + 1) + ": " + result.cover_date + " - " + result.volume.id + " - " + result.volume.api_detail_url + " - FAILED --> REASON: no volume id found");
                             // console.log("no volume id\n\n")
                         }
                         else {
                             if (volumeIds.length === 0) {
                                 volumeIds.push(result.volume.id);
                                 validatedVolumes.push(result.volume.api_detail_url);
-                                // console.log("    Result " + (i + 1) + ": " + result.cover_date + " - " + result.volume.id + " - " + result.volume.api_detail_url + " - PASSED");
+                                console.log("    Result " + (i + 1) + ": " + result.cover_date + " - " + result.volume.id + " - " + result.volume.api_detail_url + " - PASSED");
                             }
                             else {
                                 if (volumeIds.indexOf(result.volume.id) === -1) {
                                     volumeIds.push(result.volume.id);
                                     validatedVolumes.push(result.volume.api_detail_url);
-                                    // console.log("    Result " + (i + 1) + ": " + result.cover_date + " - " + result.volume.id + " - " + result.volume.api_detail_url + " - PASSED");
+                                    console.log("    Result " + (i + 1) + ": " + result.cover_date + " - " + result.volume.id + " - " + result.volume.api_detail_url + " - PASSED");
                                 }
                                 else {
-                                    // console.log("    Result " + (i + 1) + ": " + result.cover_date + " - " + result.volume.id + " - " + result.volume.api_detail_url + " - FAILED --> REASON: volume already validated for this batch");
+                                    console.log("    Result " + (i + 1) + ": " + result.cover_date + " - " + result.volume.id + " - " + result.volume.api_detail_url + " - FAILED --> REASON: volume already validated for this batch");
                                     // console.log("volume already included");
                                 }
                             }
@@ -63,7 +63,7 @@ module.exports = function (app) {
                 }
             }
 
-            // console.log("  " + validatedVolumes.length + " out of " + iData.data.results.length + " results passed first validation phase!");
+            console.log("  " + validatedVolumes.length + " out of " + iData.data.results.length + " results passed first validation phase!");
 
             getVolumesAndIssues(validatedVolumes, publisher).then(function (data) {
                 returnData.volumepackets = data;
@@ -154,46 +154,53 @@ module.exports = function (app) {
         let likedcomic = req.body;
         // console.log(likedcomic);
 
-        db.User.find({ _id: req.params.id }).then(function (foundUser) {
-            let comics = [];
-            let user = foundUser[0];
-            // console.log(user.likedcomics);
-            if(user.likedcomics.length === 0) {
-                // console.log(null);
-            }
-            else {
-                comics = user.likedcomics;
-                // console.log(comics);
-            }
-            if (comics === null || typeof(comics) === 'undefined' || comics.length === 0) {
-                // console.log("reached null")
-                comics.push(likedcomic);
-                db.User.update({ _id: req.params.id }, { likedcomics: comics }).then(function (updatedUser) {
-                    res.json({comics: comics});
-                });
-            } else {
-                // console.log("not null");
-                let alreadyLiked = false;
-                for (let i = 0; i < comics.length; i++) {
-                    if (comics[i].title === likedcomic.title) {
-                        alreadyLiked = true;
-                        break;
-                    }
-                }
-
-                if (alreadyLiked) {
-                    // console.log("already liked");
-                    res.json({comics: comics});
+        if (typeof(req.params.id) === "undefined" || req.params.id === null || req.oarams.id === "") {
+            res.json({
+                error: "no user ID sent!",
+            })
+        }
+        else {
+            db.User.find({ _id: req.params.id }).then(function (foundUser) {
+                let comics = [];
+                let user = foundUser[0];
+                // console.log(user.likedcomics);
+                if (user.likedcomics.length === 0) {
+                    // console.log(null);
                 }
                 else {
-                    // console.log("its not already liked");
+                    comics = user.likedcomics;
+                    // console.log(comics);
+                }
+                if (comics === null || typeof (comics) === 'undefined' || comics.length === 0) {
+                    // console.log("reached null")
                     comics.push(likedcomic);
                     db.User.update({ _id: req.params.id }, { likedcomics: comics }).then(function (updatedUser) {
                         res.json({ comics: comics });
                     });
+                } else {
+                    // console.log("not null");
+                    let alreadyLiked = false;
+                    for (let i = 0; i < comics.length; i++) {
+                        if (comics[i].title === likedcomic.title) {
+                            alreadyLiked = true;
+                            break;
+                        }
+                    }
+
+                    if (alreadyLiked) {
+                        // console.log("already liked");
+                        res.json({ comics: comics });
+                    }
+                    else {
+                        // console.log("its not already liked");
+                        comics.push(likedcomic);
+                        db.User.update({ _id: req.params.id }, { likedcomics: comics }).then(function (updatedUser) {
+                            res.json({ comics: comics });
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 }
 

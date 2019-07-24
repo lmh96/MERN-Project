@@ -17,7 +17,7 @@ class App extends React.Component {
       width: window.innerWidth,
       height: window.innerHeight,
       iHaveLoginWorking: true,
-      isLoggedIn: true,
+      isLoggedIn: false,
       isMobile: false,
       publisher: "Marvel",
       queryKey: "spider-man",

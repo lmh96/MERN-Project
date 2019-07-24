@@ -26,9 +26,9 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname+'/build/index.html'));
 });
 
-setInterval(function() {
-    http.get("https://recommendersite.herokuapp.com/");
-}, 300000);
+//setInterval(function() {
+//    http.get("https://recommendersite.herokuapp.com/");
+//}, 300000);
 
 let user = "client";
 let pass = "Psswrd1234";

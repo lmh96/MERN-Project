@@ -40,7 +40,6 @@
     border-color: grey;
     border-style: solid;
     background-color: rgba(109, 26, 26,); 
-    opacity: 100%; 
     text-shadow: 1px 1px 2px black;
     box-shadow: 1.5px 0.5px 10px #1b0404;
     background: radial-gradient(rgb(109,26,26),rgb(77, 19, 19));
